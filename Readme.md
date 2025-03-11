@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Михаил Гилодо](https://up.htmlacademy.ru/javascript-individual/2/user/1488001).
-* Наставник: `Неизвестно`.
+* Наставник: [Виктория Никитина] (https://htmlacademy.ru/profile/id1217273).
 
 ---
 
