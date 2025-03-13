@@ -26,7 +26,7 @@ console.log('--ПРОВЕРКА ДЛИНЫ СТРОКИ ЗАВЕРШЕНА--');
 
 
 // ФУНКЦИЯ ДЛЯ ПРОВЕРКИ ЯВЛЯВЕТСЯ ЛИ СТРОКА ПАЛИНДРОМОМ
-// Вариант 1 (без пробелов)
+// Вариант 1 (строка без пробелов)
 function checkIfPalindrome1(string) {
   let reversedString = '';
   const strLowerCase = string.toString().toLowerCase();
@@ -40,7 +40,7 @@ console.log(checkIfPalindrome1('ДовОд'));
 console.log(checkIfPalindrome1('Кекс'));
 console.log('--ПРОВЕРКА СТРОКИ НА ПАЛИНДРОМ ЗАВЕРШЕНА--');
 
-// Вариант 2 (с пробелами)
+// Вариант 2 (строка с пробелами)
 function checkIfPalindrome2(string) {
   let reversedString = '';
   const strLowerCaseWithoutSpaces = string.toString().toLowerCase().replaceAll(' ', '');
