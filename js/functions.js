@@ -148,7 +148,7 @@ for (let i = height6; i >= 1; i--) {
 }
 console.log('\n');
 
-// Вариант 4.2. Равнобедренный треугольник (собирался делать Верхний правый треугольник)
+// Вариант 7.1. Равнобедренный треугольник (вариант А)
 const height7 = 5;
 let counter2 = 0;
 for (let i = height7; i > 0; i--) {
@@ -156,3 +156,20 @@ for (let i = height7; i > 0; i--) {
   console.log(' '.repeat(i - 1) + '* '.repeat(counter2));
 }
 console.log('\n');
+
+// Вариант 7.2. Равнобедренный треугольник (вариант Б)
+const isoscelesTriangle = (height8) => {
+  let charset = '';
+  for (let i = 0; i < height8; i++) {
+    for (let j = 1; j <= 2 * height8 - 1; j++) {
+      if (j >= height8 - i && j <= height8 + i) {
+        charset += '*';
+      } else {
+        charset += ' ';
+      }
+    }
+    charset += '\n';
+  }
+  return charset;
+}
+console.log(isoscelesTriangle(5));
