@@ -1,4 +1,4 @@
-import {getPositiveRandomInteger, getUnique} from './util.js';
+import {getPositiveRandomInteger, getUnique, getRandomElement} from './util.js';
 
 const DESCRIPTIONS = ['Утро', 'Котик', 'Солнышко', 'Дерево'];
 const LIKES_MIN = 15;
@@ -21,8 +21,6 @@ const NAMES = ['Иван', 'Пётр', 'Александр', 'Наталья', '
 
 const getUniqueId = getUnique(PHOTOS_MIN, PHOTOS_MAX);
 const getUniquePhoto = getUnique(PHOTOS_MIN, PHOTOS_MAX);
-
-const getRandomElement = (arr) => arr[getPositiveRandomInteger(0, arr.length - 1)];
 
 const getComment = () => ({
   id: getPositiveRandomInteger(COMMENTS_MIN, COMMENTS_MAX),

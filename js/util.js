@@ -5,23 +5,25 @@ const getPositiveRandomInteger = (a, b) => {
   return Math.floor(positiveRandomInteger);
 };
 
-const getUnique = (a, b) => {
+const getUnique = (min, max) => {
   const previousValues = [];
 
   return function () {
-    let currentValue = getPositiveRandomInteger(a, b);
+    let currentValue = getPositiveRandomInteger(min, max);
 
-    if (previousValues.length >= (b - a + 1)) {
-      console.error('Перебраны все числа из диапазона от ' + a + ' до ' + b);
+    if (previousValues.length >= (max - min + 1)) {
+      console.error('Перебраны все числа из диапазона от ' + min + ' до ' + max);
       return null;
     }
 
     while (previousValues.includes(currentValue)) {
-      currentValue = getPositiveRandomInteger(a, b);
+      currentValue = getPositiveRandomInteger(min, max);
     }
     previousValues.push(currentValue);
     return currentValue;
   };
 };
 
-export {getPositiveRandomInteger, getUnique};
+const getRandomElement = (arr) => arr[getPositiveRandomInteger(0, arr.length - 1)];
+
+export {getPositiveRandomInteger, getUnique, getRandomElement};

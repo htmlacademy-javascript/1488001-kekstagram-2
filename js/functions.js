@@ -173,3 +173,5 @@ const isoscelesTriangle = (height8) => {
   return charset;
 }
 console.log(isoscelesTriangle(5));
+
+
