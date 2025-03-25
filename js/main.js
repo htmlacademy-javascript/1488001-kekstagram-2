@@ -1,11 +1,12 @@
-const PHOTOS_MIN = 1;
-const PHOTOS_MAX = 25;
+const DESCRIPTIONS = ['Утро', 'Котик', 'Солнышко', 'Дерево'];
 const LIKES_MIN = 15;
 const LIKES_MAX = 200;
 const COMMENTS_MIN = 0;
 const COMMENTS_MAX = 30;
 const AVATAR_MIN = 1;
 const AVATAR_MAX = 6;
+const PHOTOS_MIN = 1;
+const PHOTOS_MAX = 25;
 const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -16,68 +17,73 @@ const MESSAGES = [
 ];
 const NAMES = ['Иван', 'Пётр', 'Александр', 'Наталья', 'Екатерина', 'Татьяна', 'Олег', 'Владимир', 'Михаил', 'Константин'];
 
-// Функция - генератор случайного положительного целого числа
-const getPositiveRandomInteger = (min, max) => {
-  const lowerLimit = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-  const upperLimit = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+const getPositiveRandomInteger = (a, b) => {
+  const lowerLimit = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upperLimit = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
   const positiveRandomInteger = Math.random() * (upperLimit - lowerLimit + 1) + lowerLimit;
   return Math.floor(positiveRandomInteger);
 };
 
-// Функция - генератор уникального случайного положительного целого числа
-const getUniqueIdNumberFromGenerator = (min, max) => {
+const getUnique = (a, b) => {
   const previousValues = [];
 
   return function () {
-    let currentValue = getPositiveRandomInteger(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      console.error('Перебраны все числа из диапазона от ' + min + ' до ' + max);
+    let currentValue = getPositiveRandomInteger(a, b);
+
+    if (previousValues.length >= (b - a + 1)) {
+      console.error('Перебраны все числа из диапазона от ' + a + ' до ' + b);
       return null;
     }
+
     while (previousValues.includes(currentValue)) {
-      currentValue = getPositiveRandomInteger(min, max);
+      currentValue = getPositiveRandomInteger(a, b);
     }
     previousValues.push(currentValue);
     return currentValue;
   };
 };
 
-// Функция получения случайного элемента из массива
-const getRandomArrayElement = (elements) => elements[getPositiveRandomInteger(0, elements.length - 1)];
+const getUniqueId = getUnique(PHOTOS_MIN, PHOTOS_MAX);
+const getUniquPhoto = getUnique(PHOTOS_MIN, PHOTOS_MAX);
 
-// Функция создания уникального идентификатора для фотографии
-const generatePhotoId = getUniqueIdNumberFromGenerator(PHOTOS_MIN, PHOTOS_MAX);
+const getRandomElement = (arr) => arr[getPositiveRandomInteger(0, arr.length - 1)];
 
-// Функция создания фотографии (объекта)
-const createPhoto = () => {
-  const id = generatePhotoId();
-  return {
-    id,
-    url: `photos/${id}.jpg`,
-    description: 'Одно из лучших фото на Земле, но это не точно',
-    likes: getPositiveRandomInteger(LIKES_MIN, LIKES_MAX),
-    comment: [{
-      id: getPositiveRandomInteger(COMMENTS_MIN, COMMENTS_MAX),
-      avatar: `img/avatar-${getPositiveRandomInteger(AVATAR_MIN, AVATAR_MAX)}.svg`,
-      message: getRandomArrayElement(MESSAGES),
-      name: getRandomArrayElement(NAMES),
-    }],
-  };
+const getComment = () => ({
+  id: getPositiveRandomInteger(COMMENTS_MIN, COMMENTS_MAX),
+  avatar: `img/avatar-${getPositiveRandomInteger(AVATAR_MIN, AVATAR_MAX)}.svg`,
+  message: getRandomElement(MESSAGES),
+  name: getRandomElement(NAMES),
+});
+
+
+const getComments = () => {
+  const count = getPositiveRandomInteger(COMMENTS_MIN, COMMENTS_MAX);
+  const comments = [];
+  for (let i = 1; i <= count; i++) {
+    comments.push(getComment());
+  }
+  return comments;
 };
 
-console.log(createPhoto());
+const getPhoto = () => ({
+  id: getUniqueId(),
+  url: `photos/${getUniquPhoto()}.jpg`,
+  description: getRandomElement(DESCRIPTIONS),
+  likes: getPositiveRandomInteger(LIKES_MIN, LIKES_MAX),
+  comments: getComments()
+});
 
-// const createPhoto1 = () => ({
-//     id: getUniqueIdNumberFromGenerator(PHOTOS_MIN, PHOTOS_MAX),
-//     url: `photos/${this.id}.jpg`,
-//     description: 'Лучшее фото на Земле',
-//     likes: getPositiveRandomInteger(LIKES_MIN, LIKES_MAX),
-//     comment: [{
-//       id: getPositiveRandomInteger(COMMENTS_MIN, COMMENTS_MAX),
-//       avatar: `img/avatar-${getPositiveRandomInteger(AVATAR_MIN, AVATAR_MAX)}.svg`,
-//       message: getRandomArrayElement(MESSAGES),
-//       name: getRandomArrayElement(NAMES),
-//     }],
-// });
 
-// console.log(createPhoto1());
+// const createPhotos = () => {
+//   const result = [];
+
+//   for (let i = 1; i <= 25; i++) {
+//     result.push(getPhoto())
+//   }
+
+//   return result;
+// };
+
+const createPhotos = () => Array.from({ length: PHOTOS_MAX }, getPhoto);
+
+console.log(createPhotos());
