@@ -171,7 +171,41 @@ const isoscelesTriangle = (height8) => {
     charset += '\n';
   }
   return charset;
-}
+};
 console.log(isoscelesTriangle(5));
 
+// 6. ПРОВЕРКА РАБОЧЕГО ВРЕМЕНИ
+// Вариант 1 (Виктория)
+const getTimePoint = (timeText) => {
+  const [hour, minute] = timeText.split(':');
+  return (Number(hour) * 60 + Number(minute));
+};
 
+const checkMeeting = (workStart, workEnd, meetingStart, duration) => {
+  const workStartTime = getTimePoint(workStart);
+  const workEndTime = getTimePoint(workEnd);
+  const meetingStartTime = getTimePoint(meetingStart);
+  const meetingEndTime = meetingStartTime + duration;
+
+  return meetingStartTime >= workStartTime
+      && meetingStartTime <= workEndTime
+      && meetingEndTime >= workStartTime
+      && meetingEndTime <= workEndTime;
+};
+console.log(checkMeeting('08:00', '14:30', '14:00', 90));
+
+// Вариант 2 (ChatGPT)
+function isMeetingWithinWorkday(workStart, workEnd, meetingStart, duration) {
+  function parseTime(timeStr) {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return hours * 60 + minutes;
+  }
+
+  const workStartMinutes = parseTime(workStart);
+  const workEndMinutes = parseTime(workEnd);
+  const meetingStartMinutes = parseTime(meetingStart);
+  const meetingEndMinutes = meetingStartMinutes + duration;
+
+  return workStartMinutes <= meetingStartMinutes && meetingEndMinutes <= workEndMinutes;
+}
+console.log(isMeetingWithinWorkday('08:00', '14:30', '14:00', 90));
