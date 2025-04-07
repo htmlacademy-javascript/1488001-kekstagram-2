@@ -10,6 +10,11 @@ const commentsContainer = modal.querySelector('.social__comments');
 const commentCounter = modal.querySelector('.social__comment-count');
 const commentsLoader = modal.querySelector('.comments-loader');
 
+const COMMENTS_PORTION = 5;
+
+let allComments = [];
+let showCommentsCount = 0;
+
 
 const showModal = (isShow = true) => {
   if (isShow) {
@@ -29,8 +34,9 @@ const renderCard = ({ url, description, comments, likes }) => {
   commentsTotalCount.textContent = comments.length;
 };
 
-const renderComments = (comments) => {
-  const commentHTML = comments.map((comment) => `
+const renderComments = () => {
+  const commentsToShow = allComments.slice(0, showCommentsCount);
+  const commentHTML = commentsToShow.map((comment) => `
     <li class="social__comment">
       <img class="social__picture" src="${comment.avatar}" alt="${comment.name}" width="35" height="35">
       <p class="social__text">${comment.message}</p>
@@ -38,14 +44,28 @@ const renderComments = (comments) => {
   `).join('');
 
   commentsContainer.innerHTML = commentHTML;
-  commentCounter.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  commentsShownCount.textContent = commentsToShow.length;
+
+  if (showCommentsCount >= allComments.length) {
+    commentsLoader.classList.add('hidden');
+  } else {
+    commentsLoader.classList.remove('hidden');
+  }
+};
+
+const loadMoreComments = () => {
+  showCommentsCount += COMMENTS_PORTION;
+  renderComments();
 };
 
 const openModal = ({ url, description, comments, likes }) => {
+  allComments = comments;
+  showCommentsCount = COMMENTS_PORTION;
+
   showModal();
   renderCard({ url, description, comments, likes });
-  renderComments(comments);
+  renderComments();
+  commentCounter.classList.remove('hidden');
 };
 
 const closeModal = () => {
@@ -61,5 +81,7 @@ document.addEventListener('keydown', (evt) => {
     closeModal();
   }
 });
+
+commentsLoader.addEventListener('click', loadMoreComments);
 
 export { openModal };
