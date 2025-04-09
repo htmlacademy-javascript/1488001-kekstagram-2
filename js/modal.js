@@ -11,10 +11,8 @@ const commentCounter = modal.querySelector('.social__comment-count');
 const commentsLoader = modal.querySelector('.comments-loader');
 
 const COMMENTS_PORTION = 5;
-
 let allComments = [];
 let showCommentsCount = 0;
-
 
 const showModal = (isShow = true) => {
   if (isShow) {
