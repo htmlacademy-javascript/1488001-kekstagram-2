@@ -34,14 +34,14 @@ const renderCard = ({ url, description, comments, likes }) => {
 
 const renderComments = () => {
   const commentsToShow = allComments.slice(0, showCommentsCount);
-  const commentHTML = commentsToShow.map((comment) => `
+  const commentsHTML = commentsToShow.map((comment) => `
     <li class="social__comment">
       <img class="social__picture" src="${comment.avatar}" alt="${comment.name}" width="35" height="35">
       <p class="social__text">${comment.message}</p>
     </li>
   `).join('');
 
-  commentsContainer.innerHTML = commentHTML;
+  commentsContainer.innerHTML = commentsHTML;
   commentsShownCount.textContent = commentsToShow.length;
 
   if (showCommentsCount >= allComments.length) {
@@ -57,7 +57,7 @@ const loadMoreComments = () => {
 };
 
 const openModal = ({ url, description, comments, likes }) => {
-  allComments = comments;
+  allComments = [...comments];
   showCommentsCount = COMMENTS_PORTION;
 
   showModal();
