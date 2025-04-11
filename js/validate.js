@@ -1,6 +1,6 @@
 const MAX_HASHTAGS = 5;
 const MAX_DESCRIPTION_LENGTH = 140;
-const HASHTAG_REGEXP = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/i;
+const HASHTAGS_REGEXP = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/i;
 
 const photoUploadForm = document.querySelector('.img-upload__form');
 const descriptionField = photoUploadForm.querySelector('.text__description');
@@ -19,7 +19,7 @@ const validateHashtags = (value) => {
     return true;
   }
   const hashtags = getHashtags(value);
-  return hashtags.every((hashtag) => HASHTAG_REGEXP.test(hashtag));
+  return hashtags.every((hashtag) => HASHTAGS_REGEXP.test(hashtag));
 };
 
 const checkHashtagsCount = (value) => {
@@ -30,7 +30,7 @@ const checkHashtagsCount = (value) => {
   return hashtags.length < MAX_HASHTAGS;
 };
 
-const checkHashtagUnique = (value) => {
+const isHashtagUnique = (value) => {
   if (!value.trim()) {
     return true;
   }
@@ -45,7 +45,7 @@ pristine.addValidator(hashtagsField, validateHashtags,'Хэштег содерж
 
 pristine.addValidator(hashtagsField, checkHashtagsCount, `Количество хэштегов не должно превышать ${MAX_HASHTAGS}`);
 
-pristine.addValidator(hashtagsField, checkHashtagUnique, 'Хэштеги не должны повторяться');
+pristine.addValidator(hashtagsField, isHashtagUnique, 'Хэштеги не должны повторяться');
 
 pristine.addValidator(descriptionField, validateDescription, `Количество символов в описании не должно превышать ${MAX_DESCRIPTION_LENGTH}`);
 
