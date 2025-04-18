@@ -43,4 +43,65 @@ const MESSAGES = [
 ];
 const NAMES = ['Иван', 'Пётр', 'Александр', 'Наталья', 'Екатерина', 'Татьяна'];
 
-export {DESCRIPTIONS, LIKES_MIN, LIKES_MAX, COMMENTS_MIN, COMMENTS_MAX, AVATAR_MIN, AVATAR_MAX, PHOTOS_MIN, PHOTOS_MAX, MESSAGES, NAMES};
+export const Scale = {
+  MAX: 100,
+  MIN: 25,
+  STEP: 25
+};
+export const SCALE_DEFAULT = Scale.MAX;
+
+export { DESCRIPTIONS, LIKES_MIN, LIKES_MAX, COMMENTS_MIN, COMMENTS_MAX, AVATAR_MIN, AVATAR_MAX, PHOTOS_MIN, PHOTOS_MAX, MESSAGES, NAMES };
+
+export const EFFECTS = {
+  CHROME: 'chrome',
+  SEPIA: 'sepia',
+  MARVIN: 'marvin',
+  PHOBOS: 'phobos',
+  HEAT: 'heat',
+  NONE: 'none'
+}
+
+export const effectConfigs = {
+  [EFFECTS.CHROME]: {
+    range: { min: 0, max: 1 },
+    start: 1,
+    step: 0.1,
+    style: 'grayscale',
+    units: ''
+  },
+  [EFFECTS.SEPIA]: {
+    range: { min: 0, max: 1 },
+    start: 1,
+    step: 0.1,
+    style: 'sepia',
+    units: ''
+  },
+  [EFFECTS.MARVIN]: {
+    range: { min: 0, max: 100 },
+    start: 100,
+    step: 1,
+    style: 'invert',
+    units: '%'
+  },
+  [EFFECTS.PHOBOS]: {
+    range: { min: 0, max: 3 },
+    start: 3,
+    step: 0.1,
+    style: 'blur',
+    units: 'px'
+  },
+  [EFFECTS.HEAT]: {
+    range: { min: 1, max: 3 },
+    start: 3,
+    step: 0.1,
+    style: 'brightness',
+    units: ''
+  },
+  [EFFECTS.NONE]: {
+    range: { min: 1, max: 3 },
+    start: 3,
+    step: 0.1,
+    style: 'brightness',
+    units: ''
+  },
+};

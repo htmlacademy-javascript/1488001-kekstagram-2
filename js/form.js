@@ -1,3 +1,5 @@
+import { reset as resetEffect } from './effects.js';
+import { reset as resetScale } from './scale.js';
 import { isValid } from './validate.js';
 
 const body = document.body;
@@ -30,16 +32,24 @@ const openForm = () => {
 };
 
 const closeForm = () => {
-  closeButton.addEventListener('click', () => {
+  // closeButton.addEventListener('click', () => {
     photoEditModal.classList.add('hidden');
     body.classList.remove('modal-open');
-    photoUploadBtn.value = '';
-    photoBigPreview.src = '';
-    photoSmallPreviews.forEach((photoSmallPreview) => {
-      photoSmallPreview.style.backgroundImage = '';
-    });
-  });
+    // photoUploadBtn.value = '';
+    // photoBigPreview.src = '';
+    // photoSmallPreviews.forEach((photoSmallPreview) => {
+    //   photoSmallPreview.style.backgroundImage = '';
+    // });
+  // });
+
+  photoUploadForm.reset();
+  resetScale();
+  resetEffect()
 };
+
+closeButton.addEventListener('click', () => {
+  closeForm()
+});
 
 document.addEventListener('keydown', (evt) => {
   if (evt.key === 'Escape') {

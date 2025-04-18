@@ -1,11 +1,8 @@
 import { createPhotos } from './data.js';
 import { renderPhotos } from './render.js';
-import { openForm, closeForm } from './form.js';
-import { useEffects } from './effects.js';
+import { openForm } from './form.js';
 
 renderPhotos(createPhotos());
 
 openForm();
-closeForm();
 
-useEffects();
