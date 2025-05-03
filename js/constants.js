@@ -59,7 +59,7 @@ export const EFFECTS = {
   PHOBOS: 'phobos',
   HEAT: 'heat',
   NONE: 'none'
-}
+};
 
 export const effectConfigs = {
   [EFFECTS.CHROME]: {
@@ -104,4 +104,9 @@ export const effectConfigs = {
     style: 'brightness',
     units: ''
   },
+};
+
+export const Popups = {
+  SUCCESS: 'success',
+  ERROR: 'error'
 };
