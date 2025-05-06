@@ -1,3 +1,5 @@
+import { removeEscapeControl, setEscapeControl } from './escapeControl.js';
+
 const body = document.body;
 const modal = document.querySelector('.big-picture');
 const bigImage = modal.querySelector('.big-picture__img img');
@@ -64,20 +66,17 @@ const openModal = ({ url, description, comments, likes }) => {
   renderCard({ url, description, comments, likes });
   renderComments();
   commentCounter.classList.remove('hidden');
+  setEscapeControl(closeModal);
+
 };
 
-const closeModal = () => {
+function closeModal () {
   showModal(false);
-};
+}
 
 closeButton.addEventListener('click', () => {
   closeModal();
-});
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    closeModal();
-  }
+  removeEscapeControl();
 });
 
 commentsLoader.addEventListener('click', loadMoreComments);
