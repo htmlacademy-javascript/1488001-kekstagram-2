@@ -110,3 +110,5 @@ export const Popups = {
   SUCCESS: 'success',
   ERROR: 'error'
 };
+
+export const DELAY_TIME = 5000;

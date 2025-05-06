@@ -1,8 +1,14 @@
-import { createPhotos } from './data.js';
 import { renderPhotos } from './render.js';
 import { openForm } from './form.js';
+import { getData } from './api.js';
+import { showAlert } from './util.js';
 
-renderPhotos(createPhotos());
+getData()
+  .then((photos) => {
+    renderPhotos(photos);
+  })
+  .catch((e) => {
+    showAlert();
+  });
 
 openForm();
-

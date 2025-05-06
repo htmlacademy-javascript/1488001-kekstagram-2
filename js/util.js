@@ -1,3 +1,5 @@
+import { DELAY_TIME } from './constants.js';
+
 const getPositiveRandomInteger = (a, b) => {
   const lowerLimit = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upperLimit = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -26,4 +28,16 @@ const getUnique = (min, max) => {
 
 const getRandomElement = (arr) => arr[getPositiveRandomInteger(0, arr.length - 1)];
 
-export {getPositiveRandomInteger, getUnique, getRandomElement};
+const showAlert = () => {
+  const alertTemplate = document.querySelector('#data-error').content.querySelector('.data-error')
+  const body = document.body;
+
+  const alert = alertTemplate.cloneNode(true);
+  body.append(alert);
+  setTimeout(() => {
+    alert.remove();
+  }, DELAY_TIME)
+};
+
+export {getPositiveRandomInteger, getUnique, getRandomElement, showAlert};
+
