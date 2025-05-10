@@ -27,6 +27,7 @@ const checkHashtagsCount = (value) => {
     return true;
   }
   const hashtags = getHashtags(value);
+  
   return hashtags.length < MAX_HASHTAGS;
 };
 
