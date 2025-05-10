@@ -5,7 +5,14 @@ const pictureTemplate = document.querySelector('#picture').content.querySelector
 
 let localPhotos;
 
+const clear = () => {
+  document.querySelectorAll('.picture').forEach((item) => {
+    item.remove();
+  });
+};
+
 const renderPhotos = (photos) => {
+  clear();
   const fragment = document.createDocumentFragment();
   localPhotos = [...photos];
 

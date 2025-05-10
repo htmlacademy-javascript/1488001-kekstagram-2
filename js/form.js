@@ -1,5 +1,5 @@
 import { postData } from './api.js';
-import { Popups } from './constants.js';
+import { Popups, SubmitButtonText } from './constants.js';
 import { reset as resetEffect } from './effects.js';
 import { removeEscapeControl, setEscapeControl } from './escapeControl.js';
 import { showPopup } from './popup.js';
@@ -10,7 +10,8 @@ const body = document.body;
 const photoUploadForm = document.querySelector('.img-upload__form');
 const descriptionField = photoUploadForm.querySelector('.text__description');
 const hashtagsField = photoUploadForm.querySelector('.text__hashtags');
-const photoUploadBtn = photoUploadForm.querySelector('.img-upload__input');
+const photoUploadInput = photoUploadForm.querySelector('.img-upload__input');
+const photoUploadBtn = photoUploadForm.querySelector('.img-upload__submit');
 const photoEditModal = photoUploadForm.querySelector('.img-upload__overlay');
 const photoBigPreview = photoUploadForm.querySelector('.img-upload__preview img');
 const photoSmallPreviews = document.querySelectorAll('.effects__preview');
@@ -20,10 +21,11 @@ const canCloseForm = () => !(document.activeElement === descriptionField || docu
 
 const openForm = () => {
   document.addEventListener('DOMContentLoaded', () => {
-    photoUploadBtn.addEventListener('input', () => {
+    photoUploadInput.addEventListener('input', () => {
       photoEditModal.classList.remove('hidden');
       body.classList.add('modal-open');
-      const file = photoUploadBtn.files[0];
+      const file = photoUploadInput.files[0];
+
       setEscapeControl(closeForm, canCloseForm);
 
       if (file && file.type.startsWith('image/')) {
@@ -52,12 +54,16 @@ closeButton.addEventListener('click', () => {
   removeEscapeControl();
 });
 
+const disableButton = (isDisabled = true) => {
+  photoUploadBtn.disabled = isDisabled;
+  photoUploadBtn.textContent = isDisabled  ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
+};
+
 photoUploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   if (isValid()) {
-    // photoUploadBtn.disabled = true;
-    // photoUploadBtn.textContent = 'Публикую...';
+    disableButton();
     postData(new FormData(photoUploadForm))
       .then((response) => {
         if (!response.ok) {
@@ -71,7 +77,7 @@ photoUploadForm.addEventListener('submit', (evt) => {
         showPopup(Popups.ERROR);
       })
       .finally(() => {
-        // photoUploadBtn.disabled = false;
+        disableButton(false);
       });
   }
 });
