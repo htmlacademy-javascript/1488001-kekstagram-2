@@ -1,4 +1,4 @@
-import { effectConfigs, EFFECTS } from "./constants.js";
+import { effectConfigs, EFFECTS } from './constants.js';
 
 const imagePreview = document.querySelector('.img-upload__preview img');
 const effectLevelValue = document.querySelector('.effect-level__value');
@@ -13,6 +13,14 @@ noUiSlider.create(effectLevelSlider, {
   start: 1,
   step: 0.1,
   connect: 'lower',
+  format: {
+    to: function (value) {
+      return parseFloat(value);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  }
 });
 
 const isDefault = () => currentEffect === EFFECTS.NONE;
@@ -46,7 +54,6 @@ effectLevelSlider.noUiSlider.on('update', () => {
 });
 
 effectsContainer.addEventListener('change', ({ target }) => {
-  console.log(target.value)
   currentEffect = target.value;
   renderSlider();
   updateSlider();

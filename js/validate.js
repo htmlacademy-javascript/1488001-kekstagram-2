@@ -27,7 +27,7 @@ const checkHashtagsCount = (value) => {
     return true;
   }
   const hashtags = getHashtags(value);
-  return hashtags.length < MAX_HASHTAGS;
+  return hashtags.length <= MAX_HASHTAGS;
 };
 
 const isHashtagUnique = (value) => {
@@ -50,3 +50,5 @@ pristine.addValidator(hashtagsField, isHashtagUnique, 'Хэштеги не до�
 pristine.addValidator(descriptionField, validateDescription, `Количество символов в описании не должно превышать ${MAX_DESCRIPTION_LENGTH}`);
 
 export const isValid = () => pristine.validate();
+
+export const reset = () => pristine.reset();

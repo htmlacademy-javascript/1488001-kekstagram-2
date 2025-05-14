@@ -1,5 +1,6 @@
 import { Popups } from './constants.js';
-import { removeEscapeControl, setEscapeControl } from './escapeControl.js';
+import { removeEscapeControl, setEscapeControl } from './escape-control.js';
+
 const body = document.body;
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -20,6 +21,6 @@ export const showPopup = (type) => {
   });
   setEscapeControl(()=> {
     popup.remove();
-  })
+  });
   body.append(popup);
 };

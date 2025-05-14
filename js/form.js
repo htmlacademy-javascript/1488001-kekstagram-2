@@ -1,10 +1,11 @@
 import { postData } from './api.js';
 import { Popups, SubmitButtonText } from './constants.js';
 import { reset as resetEffect } from './effects.js';
-import { removeEscapeControl, setEscapeControl } from './escapeControl.js';
+import { removeEscapeControl, setEscapeControl } from './escape-control.js';
 import { showPopup } from './popup.js';
 import { reset as resetScale } from './scale.js';
 import { isValid } from './validate.js';
+import { reset as resetValidation } from './validate.js';
 
 const body = document.body;
 const photoUploadForm = document.querySelector('.img-upload__form');
@@ -34,8 +35,6 @@ const openForm = () => {
         photoSmallPreviews.forEach((photoSmallPreview) => {
           photoSmallPreview.style.backgroundImage = `url(${imageUrl})`;
         });
-      } else {
-        console.warn('Файл не является изображением или не выбран');
       }
     });
   });
@@ -47,7 +46,8 @@ function closeForm() {
   photoUploadForm.reset();
   resetScale();
   resetEffect();
-};
+  resetValidation();
+}
 
 closeButton.addEventListener('click', () => {
   closeForm();
@@ -56,7 +56,7 @@ closeButton.addEventListener('click', () => {
 
 const disableButton = (isDisabled = true) => {
   photoUploadBtn.disabled = isDisabled;
-  photoUploadBtn.textContent = isDisabled  ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
+  photoUploadBtn.textContent = isDisabled ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
 };
 
 photoUploadForm.addEventListener('submit', (evt) => {
@@ -67,7 +67,7 @@ photoUploadForm.addEventListener('submit', (evt) => {
     postData(new FormData(photoUploadForm))
       .then((response) => {
         if (!response.ok) {
-          throw new Error()
+          throw new Error();
         }
         closeForm();
         removeEscapeControl();
