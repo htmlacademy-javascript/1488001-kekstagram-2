@@ -25,6 +25,7 @@ const openForm = () => {
       photoEditModal.classList.remove('hidden');
       body.classList.add('modal-open');
       const file = photoUploadInput.files[0];
+
       setEscapeControl(closeForm, canCloseForm);
 
       if (file && file.type.startsWith('image/')) {
