@@ -1,4 +1,4 @@
-import { removeEscapeControl, setEscapeControl } from './escapeControl.js';
+import { removeEscapeControl, setEscapeControl } from './escape-control.js';
 
 const body = document.body;
 const modal = document.querySelector('.big-picture');
@@ -67,7 +67,6 @@ const openModal = ({ url, description, comments, likes }) => {
   renderComments();
   commentCounter.classList.remove('hidden');
   setEscapeControl(closeModal);
-
 };
 
 function closeModal () {
