@@ -1,4 +1,4 @@
-import { effectConfigs, EFFECTS } from "./constants.js";
+import { effectConfigs, EFFECTS } from './constants.js';
 
 const imagePreview = document.querySelector('.img-upload__preview img');
 const effectLevelValue = document.querySelector('.effect-level__value');
@@ -46,7 +46,6 @@ effectLevelSlider.noUiSlider.on('update', () => {
 });
 
 effectsContainer.addEventListener('change', ({ target }) => {
-  console.log(target.value)
   currentEffect = target.value;
   renderSlider();
   updateSlider();

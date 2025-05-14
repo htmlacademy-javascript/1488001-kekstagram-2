@@ -1,6 +1,6 @@
-import { DEBOUNCE_DELAY, DELAY_TIME } from "./constants.js";
+import { DEBOUNCE_DELAY, DELAY_TIME } from './constants.js';
 
-const alertTemplate = document.querySelector('#data-error').content.querySelector('.data-error')
+const alertTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
 const body = document.body;
 
 export const showAlert = () => {
@@ -8,7 +8,7 @@ export const showAlert = () => {
   body.append(alert);
   setTimeout(() => {
     alert.remove();
-  }, DELAY_TIME)
+  }, DELAY_TIME);
 };
 
 export const debounce = (callback, timeoutDelay = DEBOUNCE_DELAY) => {
@@ -17,4 +17,4 @@ export const debounce = (callback, timeoutDelay = DEBOUNCE_DELAY) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback(...arguments), timeoutDelay);
   };
-}
+};

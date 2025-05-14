@@ -1,4 +1,4 @@
-import { Scale, SCALE_DEFAULT } from "./constants.js";
+import { Scale, SCALE_DEFAULT } from './constants.js';
 
 
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
@@ -10,9 +10,9 @@ let currentScale = SCALE_DEFAULT;
 
 
 const render = () => {
-  imagePreview.style.scale = `${currentScale}%`;
+  imagePreview.style.transform = `scale ${currentScale}%`;
   scaleControlValue.value = `${currentScale}%`;
-}
+};
 
 const minimizePhoto = () => {
   // currentScale = currentScale - Scale.STEP >= Scale.MIN ? currentScale - Scale.STEP : Scale.MIN;

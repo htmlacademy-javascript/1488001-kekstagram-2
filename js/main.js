@@ -9,7 +9,7 @@ getData()
     renderPhotos(photos);
     initFilters(photos);
   })
-  .catch((e) => {
+  .catch(() => {
     showAlert();
   });
 

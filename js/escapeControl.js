@@ -7,7 +7,7 @@ const onDocumentKeydown = (evt) => {
 
     if (windows[lastIndex].condition && !windows[lastIndex].condition()) {
       return;
-    };
+    }
     windows[lastIndex].closeFunction();
     windows.length = windows.length - 1;
 

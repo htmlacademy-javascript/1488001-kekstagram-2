@@ -1,6 +1,6 @@
-import { DISCUSSED_COUNT, Filters } from "./constants.js";
-import { renderPhotos } from "./render.js";
-import { debounce } from "./util.js";
+import { DISCUSSED_COUNT, Filters } from './constants.js';
+import { renderPhotos } from './render.js';
+import { debounce } from './util.js';
 
 const imageFilters = document.querySelector('.img-filters');
 const filterForm = document.querySelector('.img-filters__form');
@@ -23,7 +23,7 @@ const filterData = {
   [Filters.DEFAULT]: () => localPhotos,
   [Filters.DISCUSSED]: () => [...localPhotos].sort((a, b) => b.comments.length - a.comments.length),
   [Filters.RANDOM]: () => [...localPhotos].sort(() => Math.random() - 0.5).slice(0, DISCUSSED_COUNT)
-}
+};
 
 filterForm.addEventListener('click', ({ target }) => {
   const filterButton = target.closest('.img-filters__button');
@@ -33,4 +33,4 @@ filterForm.addEventListener('click', ({ target }) => {
     const filteredPhotos = filterData[filter]();
     debouncedRender(filteredPhotos);
   }
-})
+});

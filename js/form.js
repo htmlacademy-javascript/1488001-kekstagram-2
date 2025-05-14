@@ -33,8 +33,6 @@ const openForm = () => {
         photoSmallPreviews.forEach((photoSmallPreview) => {
           photoSmallPreview.style.backgroundImage = `url(${imageUrl})`;
         });
-      } else {
-        console.warn('Файл не является изображением или не выбран');
       }
     });
   });
@@ -46,7 +44,7 @@ function closeForm() {
   photoUploadForm.reset();
   resetScale();
   resetEffect();
-};
+}
 
 closeButton.addEventListener('click', () => {
   closeForm();
@@ -55,7 +53,7 @@ closeButton.addEventListener('click', () => {
 
 const disableButton = (isDisabled = true) => {
   photoUploadBtn.disabled = isDisabled;
-  photoUploadBtn.textContent = isDisabled  ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
+  photoUploadBtn.textContent = isDisabled ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
 };
 
 photoUploadForm.addEventListener('submit', (evt) => {
@@ -66,7 +64,7 @@ photoUploadForm.addEventListener('submit', (evt) => {
     postData(new FormData(photoUploadForm))
       .then((response) => {
         if (!response.ok) {
-          throw new Error()
+          throw new Error();
         }
         closeForm();
         removeEscapeControl();
