@@ -1,3 +1,4 @@
+import { COMMENTS_PORTION } from './constants.js';
 import { removeEscapeControl, setEscapeControl } from './escape-control.js';
 
 const body = document.body;
@@ -11,8 +12,8 @@ const commentsTotalCount = modal.querySelector('.social__comment-total-count');
 const commentsContainer = modal.querySelector('.social__comments');
 const commentCounter = modal.querySelector('.social__comment-count');
 const commentsLoader = modal.querySelector('.comments-loader');
+const commentTemplate = modal.querySelector('.social__comment');
 
-const COMMENTS_PORTION = 5;
 let allComments = [];
 let showCommentsCount = 0;
 
@@ -35,18 +36,21 @@ const renderCard = ({ url, description, comments, likes }) => {
 };
 
 const renderComments = () => {
-  const commentsToShow = allComments.slice(0, showCommentsCount);
-  const commentsHTML = commentsToShow.map((comment) => `
-    <li class="social__comment">
-      <img class="social__picture" src="${comment.avatar}" alt="${comment.name}" width="35" height="35">
-      <p class="social__text">${comment.message}</p>
-    </li>
-  `).join('');
+  const commentsToShow = allComments.splice(0, COMMENTS_PORTION);
+  const comments = commentsToShow.map((comment) => {
+    const newComment = commentTemplate.cloneNode(true);
+    const imageAvatar = newComment.querySelector('.social__picture');
+    imageAvatar.src = comment.avatar;
+    imageAvatar.alt = comment.name;
+    newComment.querySelector('.social__text').textContent = comment.message;
+    showCommentsCount++;
+    return newComment;
+  });
 
-  commentsContainer.innerHTML = commentsHTML;
-  commentsShownCount.textContent = commentsToShow.length;
+  commentsContainer.append(...comments);
+  commentsShownCount.textContent = showCommentsCount;
 
-  if (showCommentsCount >= allComments.length) {
+  if (!allComments.length) {
     commentsLoader.classList.add('hidden');
   } else {
     commentsLoader.classList.remove('hidden');
@@ -54,22 +58,25 @@ const renderComments = () => {
 };
 
 const loadMoreComments = () => {
-  showCommentsCount += COMMENTS_PORTION;
   renderComments();
+};
+
+const onLoaderButtonClick = () => {
+  loadMoreComments();
 };
 
 const openModal = ({ url, description, comments, likes }) => {
   allComments = [...comments];
-  showCommentsCount = COMMENTS_PORTION;
-
+  commentsContainer.innerHTML = '';
   showModal();
   renderCard({ url, description, comments, likes });
+  showCommentsCount = 0;
   renderComments();
   commentCounter.classList.remove('hidden');
   setEscapeControl(closeModal);
 };
 
-function closeModal () {
+function closeModal() {
   showModal(false);
 }
 
@@ -78,6 +85,6 @@ closeButton.addEventListener('click', () => {
   removeEscapeControl();
 });
 
-commentsLoader.addEventListener('click', loadMoreComments);
+commentsLoader.addEventListener('click', onLoaderButtonClick);
 
 export { openModal };

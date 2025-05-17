@@ -22,8 +22,16 @@ const maximizePhoto = () => {
   render();
 };
 
-scaleControlSmaller.addEventListener('click', minimizePhoto);
-scaleControlBigger.addEventListener('click', maximizePhoto);
+const onMinusClick = () => {
+  minimizePhoto();
+};
+
+const onPlusClick = () => {
+  maximizePhoto();
+};
+
+scaleControlSmaller.addEventListener('click', onMinusClick);
+scaleControlBigger.addEventListener('click', onPlusClick);
 
 export const reset = () => {
   currentScale = SCALE_DEFAULT;
