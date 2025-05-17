@@ -3,6 +3,9 @@ export const Scale = {
   MIN: 25,
   STEP: 25
 };
+
+export const COMMENTS_PORTION = 5;
+
 export const SCALE_DEFAULT = Scale.MAX;
 
 export const EFFECTS = {
